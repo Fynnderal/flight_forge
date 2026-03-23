@@ -27,6 +27,8 @@ private:
 
   bool GetRgbCameraData(const FTCPClient& Client, Serializable::Drone::GetRgbCameraData::Request& Request);
 
+  bool GetDepthCameraData(const FTCPClient& Client, Serializable::Drone::GetDepthCameraData::Request& Request);
+
   bool GetStereoCameraData(const FTCPClient& Client, Serializable::Drone::GetStereoCameraData::Request& Request);
   
   bool GetRgbSegCameraData(const FTCPClient& Client, Serializable::Drone::GetRgbSegCameraData::Request& Request);
@@ -54,6 +56,10 @@ private:
   bool GetRgbCameraConfig(const FTCPClient& Client, Serializable::Drone::GetRgbCameraConfig::Request& Request);
 
   bool SetRgbCameraConfig(const FTCPClient& Client, Serializable::Drone::SetRgbCameraConfig::Request& Request);
+
+  bool GetDepthCameraConfig(const FTCPClient& Client, Serializable::Drone::GetDepthCameraConfig::Request& Request);
+
+  bool SetDepthCameraConfig(const FTCPClient& Client, Serializable::Drone::SetDepthCameraConfig::Request& Request);
 
   bool GetStereoCameraConfig(const FTCPClient& Client, Serializable::Drone::GetStereoCameraConfig::Request& Request);
 

@@ -1,0 +1,17 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\unrealprojects\\forge54\\plugins\\flight_forge\\uinav3plugin_5.4\\source\\uinavigation\\private\\uinavpcreceiver.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unrealprojects\\forge54\\intermediate\\build\\win64\\x64\\forge54\\shipping\\engine\\sharedpch.engine.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "d:\\unrealprojects\\forge54\\plugins\\flight_forge\\uinav3plugin_5.4\\intermediate\\build\\win64\\x64\\unrealgame\\shipping\\uinavigation\\definitions.uinavigation.h",
+            "d:\\unrealprojects\\forge54\\plugins\\flight_forge\\uinav3plugin_5.4\\source\\uinavigation\\public\\uinavpcreceiver.h",
+            "d:\\unrealprojects\\forge54\\plugins\\flight_forge\\uinav3plugin_5.4\\source\\uinavigation\\public\\data\\inputtype.h",
+            "d:\\unrealprojects\\forge54\\plugins\\flight_forge\\uinav3plugin_5.4\\intermediate\\build\\win64\\unrealgame\\inc\\uinavigation\\uht\\inputtype.generated.h",
+            "d:\\unrealprojects\\forge54\\plugins\\flight_forge\\uinav3plugin_5.4\\intermediate\\build\\win64\\unrealgame\\inc\\uinavigation\\uht\\uinavpcreceiver.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

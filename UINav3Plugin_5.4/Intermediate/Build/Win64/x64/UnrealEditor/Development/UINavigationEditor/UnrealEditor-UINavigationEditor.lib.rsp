@@ -6,7 +6,7 @@
 /NAME:"UnrealEditor-UINavigationEditor.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Intermediate\Build\Win64\x64\mrs_flight_forgeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
-"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigationEditor\Module.UINavigationEditor.cpp.obj"
-"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigationEditor\Default.rc2.res"
-/OUT:"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigationEditor\UnrealEditor-UINavigationEditor.lib"
+"D:\UnrealProjects\Forge54\Intermediate\Build\Win64\x64\Forge54Editor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
+"D:\UnrealProjects\Forge54\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigationEditor\UINavigationEditor.cpp.obj"
+"D:\UnrealProjects\Forge54\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigationEditor\Default.rc2.res"
+/OUT:"D:\UnrealProjects\Forge54\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigationEditor\UnrealEditor-UINavigationEditor.lib"

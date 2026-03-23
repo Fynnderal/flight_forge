@@ -1,11 +1,11 @@
-"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\Module.UINavigation.2.cpp"
-/FI"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Intermediate\Build\Win64\x64\mrs_flight_forgeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
-/FI"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\Definitions.UINavigation.h"
-/Yu"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Intermediate\Build\Win64\x64\mrs_flight_forgeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
-/Fp"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Intermediate\Build\Win64\x64\mrs_flight_forgeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.pch"
-/Fo"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\Module.UINavigation.2.cpp.obj"
-/sourceDependencies "C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\Module.UINavigation.2.cpp.dep.json"
-@"C:\Users\janhr\Documents\Unreal Projects\mrs_flight_forge\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\UINavigation.Shared.rsp"
+"D:\UnrealProjects\Forge54\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\Module.UINavigation.2.cpp"
+/FI"D:\UnrealProjects\Forge54\Intermediate\Build\Win64\x64\Forge54Editor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
+/FI"D:\UnrealProjects\Forge54\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\Definitions.UINavigation.h"
+/Yu"D:\UnrealProjects\Forge54\Intermediate\Build\Win64\x64\Forge54Editor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
+/Fp"D:\UnrealProjects\Forge54\Intermediate\Build\Win64\x64\Forge54Editor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.pch"
+/Fo"D:\UnrealProjects\Forge54\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\Module.UINavigation.2.cpp.obj"
+/sourceDependencies "D:\UnrealProjects\Forge54\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\Module.UINavigation.2.cpp.dep.json"
+@"D:\UnrealProjects\Forge54\Plugins\flight_forge\UINav3Plugin_5.4\Intermediate\Build\Win64\x64\UnrealEditor\Development\UINavigation\UINavigation.Shared.rsp"
 /Zc:inline
 /nologo
 /Oi

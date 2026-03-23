@@ -63,6 +63,7 @@ enum CameraMode
   CAMERA_MODE_RGB          = 1,
   CAMERA_MODE_STEREO       = 2,
   CAMERA_MODE_RGB_SEG      = 3,
+  CAMERA_MODE_DEPTH        = 4,
 };
 
 struct FLidarConfig
@@ -113,6 +114,18 @@ struct FRgbCameraConfig
   double   motion_blur_distortion;
 };
 
+struct FDepthCameraConfig 
+{
+    bool ShowCameraComponent;
+
+    FVector Offset;
+    FRotator Orientation;
+    double FOVAngle;
+    int Width;
+    int Height;
+    float MaxDistance;
+};
+
 struct FStereoCameraConfig
 {
   bool ShowCameraComponent;
@@ -157,6 +170,9 @@ public:
   UTextureRenderTarget2D* RenderTarget2DStereoRight;
 
   UPROPERTY(VisibleAnywhere, Category = "Components")
+  UTextureRenderTarget2D* RenderTarget2DDepth;
+
+  UPROPERTY(VisibleAnywhere, Category = "Components")
   UTextureRenderTarget2D* RenderTarget2DRgbSeg;
 
   UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadWrite)
@@ -172,6 +188,9 @@ public:
   UStaticMeshComponent* SceneCaptureMeshHolderRgbSeg;
 
   UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadWrite)
+  UStaticMeshComponent* SceneCaptureMeshHolderDepth;
+
+  UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadWrite)
   UStaticMeshComponent* SceneCaptureMeshHolderStereoLeft;
 
   UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadWrite)
@@ -184,6 +203,9 @@ public:
   USceneCaptureComponent2D* SceneCaptureComponent2DRgbSeg;
 
   UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadWrite)
+  USceneCaptureComponent2D* SceneCaptureComponent2DDepth;
+
+  UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadWrite)
   USceneCaptureComponent2D* SceneCaptureComponent2DStereoLeft;
 
   UPROPERTY(VisibleAnywhere, Category = "Components", BlueprintReadWrite)
@@ -191,7 +213,13 @@ public:
 
   // PostProcessMaterial used for segmentation
   UPROPERTY(EditAnywhere, Category = "Segmentation PostProcess Setup")
-  UMaterial* PostProcessMaterial = nullptr;
+  UMaterial* PostProcessMaterial = nullptr; 
+
+  UPROPERTY(EditAnywhere, Category = "Depth PostProcess Setup")
+  UMaterial* DepthPostProcessMaterial = nullptr;
+
+  UPROPERTY()
+  UMaterialInstanceDynamic* DepthPostProcessMaterialInstance = nullptr;
 
   UPROPERTY(VisibleAnywhere, Category = "Rigid Body", BlueprintReadWrite)
   UStaticMeshComponent* RootMeshComponent;
@@ -215,10 +243,12 @@ public:
   std::unique_ptr<FWindowsCriticalSection> RgbCameraBufferCriticalSection;
   std::unique_ptr<FWindowsCriticalSection> StereoCameraBufferCriticalSection;
   std::unique_ptr<FWindowsCriticalSection> RgbSegCameraBufferCriticalSection;
+  std::unique_ptr<FWindowsCriticalSection> DepthCameraBufferCriticalSection;   
 #else
   std::unique_ptr<FPThreadsCriticalSection> RgbCameraBufferCriticalSection;
   std::unique_ptr<FPThreadsCriticalSection> StereoCameraBufferCriticalSection;
   std::unique_ptr<FPThreadsCriticalSection> RgbSegCameraBufferCriticalSection;
+  std::unique_ptr<FPThreadsCriticalSection> DepthCameraBufferCriticalSection;
 #endif
 
   TArray<FColor>                                                     RgbCameraBuffer;
@@ -226,14 +256,17 @@ public:
   TArray<FColor>                                                     StereoRightCameraBuffer;
   TArray<FColor>                                                     SemanticBuffer;
   TArray<FColor>                                                     RgbSegCameraBuffer;
+  TArray<FColor>                                                     DepthCameraBuffer;
 
   double rgb_camera_last_request_time_ = 0;
   double rgb_seg_camera_last_request_time_ = 0;
   double stereo_camera_last_request_time_ = 0;
+  double depth_camera_last_request_time_ = 0;  
 
   double rgb_stamp_ = 0;
   double rgb_seg_stamp_ = 0;
   double stereo_stamp_ = 0;
+  double depth_stamp_ = 0;
 
   std::unique_ptr<TQueue<std::shared_ptr<FInstruction<ADronePawn>>>> InstructionQueue;
 
@@ -259,6 +292,8 @@ public:
 
   bool GetRgbCameraDataFromServerThread(TArray<uint8>& OutArray, double &stamp);
 
+  bool GetDepthCameraDataFromServerThread(TArray<uint8>& outArray, double& stamp);
+
   bool GetStereoCameraDataFromServerThread(TArray<uint8>& image_left, TArray<uint8>& image_right, double &stamp);
 
   void TransformImageArray(int32 ImageWidth, int32 ImageHeight, const TArray<FColor> &SrcData, TArray<uint8> &DstData);
@@ -273,8 +308,12 @@ public:
   FRgbCameraConfig GetRgbCameraConfig();
   bool             SetRgbCameraConfig(const FRgbCameraConfig& Config);
 
+  FDepthCameraConfig GetDepthCameraConfig();
+  bool               SetDepthCameraConfig(const FDepthCameraConfig& Config); 
+
   FStereoCameraConfig GetStereoCameraConfig();
   bool                SetStereoCameraConfig(const FStereoCameraConfig& Config);
+
 
   void SetLocation(FVector& Location, FVector& TeleportedToLocation, bool CheckCollisions, FHitResult& HitResult);
 
@@ -346,19 +385,23 @@ private:
 
   FRgbCameraConfig rgb_camera_config_;
   FStereoCameraConfig stereo_camera_config_;
+  FDepthCameraConfig depth_camera_config_;
 
   std::unique_ptr<TArray<uint8>> CompressedRgbCameraData         = std::make_unique<TArray<uint8>>();
   std::unique_ptr<TArray<uint8>> CompressedStereoLeftCameraData  = std::make_unique<TArray<uint8>>();
   std::unique_ptr<TArray<uint8>> CompressedStereoRightCameraData = std::make_unique<TArray<uint8>>();
   std::unique_ptr<TArray<uint8>> CompressedRgbSegCameraData      = std::make_unique<TArray<uint8>>();
+  std::unique_ptr<TArray<uint8>> CompressedDepthCameraData       = std::make_unique<TArray<uint8>>();
 
   bool RgbCameraDataNeedsCompress         = false;
   bool StereoCameraDataNeedsCompress      = false;
   bool RgbSegCameraDataNeedsCompress      = false;
+  bool DepthCameraDataNeedsCompress       = false;
 
   bool RgbCameraRendered                  = false;
   bool RgbSegCameraRendered               = false;
   bool StereoCameraRendered               = false;
+  bool DepthCameraRendered                = false;
 
   TArray<FramePropellersTransform> FramePropellersTransforms;
 };

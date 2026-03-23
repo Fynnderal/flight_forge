@@ -107,10 +107,12 @@ ADronePawn::ADronePawn() {
   RgbCameraBufferCriticalSection    = std::make_unique<FWindowsCriticalSection>();
   StereoCameraBufferCriticalSection = std::make_unique<FWindowsCriticalSection>();
   RgbSegCameraBufferCriticalSection = std::make_unique<FWindowsCriticalSection>();
+  DepthCameraBufferCriticalSection  = std::make_unique<FWindowsCriticalSection>();
 #else
   RgbCameraBufferCriticalSection    = std::make_unique<FPThreadsCriticalSection>();
   StereoCameraBufferCriticalSection = std::make_unique<FPThreadsCriticalSection>();
   RgbSegCameraBufferCriticalSection = std::make_unique<FPThreadsCriticalSection>();
+  DepthCameraBufferCriticalSection  = std::make_unique<FPThreadsCriticalSection>();
 #endif
 
   InstructionQueue = std::make_unique<TQueue<std::shared_ptr<FInstruction<ADronePawn>>>>();
@@ -178,11 +180,17 @@ ADronePawn::ADronePawn() {
   SceneCaptureMeshHolderRgb = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SceneCaptureMeshHolderRgb"));
   SceneCaptureMeshHolderRgb->SetupAttachment(RootMeshComponent);
   
+  SceneCaptureMeshHolderDepth = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SceneCaptureMeshHolderDepth"));
+  SceneCaptureMeshHolderDepth->SetupAttachment(RootMeshComponent);
+
   SceneCaptureMeshHolderStereoLeft = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SceneCaptureMeshHolderStereoLeft"));
   SceneCaptureMeshHolderStereoLeft->SetupAttachment(RootMeshComponent);
 
   SceneCaptureMeshHolderStereoRight = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SceneCaptureMeshHolderStereoRight"));
   SceneCaptureMeshHolderStereoRight->SetupAttachment(RootMeshComponent);
+
+  SceneCaptureComponent2DDepth = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCaptureComponent2DDepth"));
+  SceneCaptureComponent2DDepth->SetupAttachment(SceneCaptureMeshHolderDepth);
 
   SceneCaptureComponent2DRgb = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCaptureComponent2DRgb"));
   SceneCaptureComponent2DRgb->SetupAttachment(SceneCaptureMeshHolderRgb);
@@ -280,24 +288,30 @@ void ADronePawn::BeginPlay() {
 
   // TODO check https://github.com/TimmHess/UnrealImageCapture
   RenderTarget2DRgb = NewObject<UTextureRenderTarget2D>();
-  RenderTarget2DRgb->InitCustomFormat(640, 480, PF_B8G8R8A8, false);
+  RenderTarget2DRgb->InitAutoFormat(640, 480);
   RenderTarget2DRgb->RenderTargetFormat = RTF_RGBA8;
   RenderTarget2DRgb->bGPUSharedFlag     = true;
 
   RenderTarget2DStereoLeft = NewObject<UTextureRenderTarget2D>();
-  RenderTarget2DStereoLeft->InitCustomFormat(640, 480, PF_B8G8R8A8, false);
+  RenderTarget2DStereoLeft->InitAutoFormat(640, 480);
   RenderTarget2DStereoLeft->RenderTargetFormat = RTF_RGBA8;
   RenderTarget2DStereoLeft->bGPUSharedFlag     = true;
 
   RenderTarget2DStereoRight = NewObject<UTextureRenderTarget2D>();
-  RenderTarget2DStereoRight->InitCustomFormat(640, 480, PF_B8G8R8A8, false);
+  RenderTarget2DStereoRight->InitAutoFormat(640, 480);
   RenderTarget2DStereoRight->RenderTargetFormat = RTF_RGBA8;
   RenderTarget2DStereoRight->bGPUSharedFlag     = true;
 
   RenderTarget2DRgbSeg = NewObject<UTextureRenderTarget2D>();
-  RenderTarget2DRgbSeg->InitCustomFormat(640, 480, PF_B8G8R8A8, false);
+  RenderTarget2DRgbSeg->InitAutoFormat(640, 480);
   RenderTarget2DRgbSeg->RenderTargetFormat = RTF_RGBA8;
   RenderTarget2DRgbSeg->bGPUSharedFlag     = true;
+
+  RenderTarget2DDepth = NewObject<UTextureRenderTarget2D>();
+  RenderTarget2DDepth->InitAutoFormat(640, 480);
+  RenderTarget2DDepth->RenderTargetFormat = RTF_RGBA8;
+  RenderTarget2DDepth->bGPUSharedFlag = true;
+  RenderTarget2DDepth->SRGB = false;
   
   SceneCaptureComponent2DRgb->CaptureSource = SCS_FinalColorHDR;
   SceneCaptureComponent2DRgb->TextureTarget = RenderTarget2DRgb;
@@ -313,7 +327,7 @@ void ADronePawn::BeginPlay() {
   SceneCaptureComponent2DRgbSeg->bAlwaysPersistRenderingState = true;
   SceneCaptureComponent2DRgbSeg->bCaptureEveryFrame           = false;
   SceneCaptureComponent2DRgbSeg->bCaptureOnMovement           = false;
-  SceneCaptureComponent2DRgbSeg->bUseRayTracingIfEnabled      = false;
+  SceneCaptureComponent2DRgbSeg->bUseRayTracingIfEnabled      = true;
   SceneCaptureComponent2DRgbSeg->AddOrUpdateBlendable(PostProcessMaterial, 1);
 
   SceneCaptureComponent2DStereoLeft->CaptureSource = SCS_FinalColorHDR;
@@ -332,6 +346,19 @@ void ADronePawn::BeginPlay() {
   SceneCaptureComponent2DStereoRight->bCaptureOnMovement           = false;
   SceneCaptureComponent2DStereoRight->bUseRayTracingIfEnabled      = true;
 
+  SceneCaptureComponent2DDepth->CaptureSource = SCS_FinalColorHDR;
+  SceneCaptureComponent2DDepth->TextureTarget = RenderTarget2DDepth;
+  SceneCaptureComponent2DDepth->ShowFlags.SetTemporalAA(false);
+  SceneCaptureComponent2DDepth->bAlwaysPersistRenderingState        = false;
+  SceneCaptureComponent2DDepth->bCaptureEveryFrame                  = false;
+  SceneCaptureComponent2DDepth->bCaptureOnMovement                  = false;
+  SceneCaptureComponent2DDepth->bUseRayTracingIfEnabled             = false;
+
+  DepthPostProcessMaterialInstance = UMaterialInstanceDynamic::Create(DepthPostProcessMaterial, this);
+  DepthPostProcessMaterialInstance->SetScalarParameterValue(FName("Max_Distance"), 3000);
+  SceneCaptureComponent2DDepth->AddOrUpdateBlendable(DepthPostProcessMaterialInstance, 1);
+  //SceneCaptureComponent2DDepth->AddOrUpdateBlendable(DepthPostProcessMaterial, 1);
+
   rgb_camera_config_.ShowCameraComponent    = false;
   rgb_camera_config_.Offset                 = FVector(0, 0, 0);
   rgb_camera_config_.Orientation            = FRotator(0, 0, 0);
@@ -341,6 +368,14 @@ void ADronePawn::BeginPlay() {
   rgb_camera_config_.enable_motion_blur     = true;
   rgb_camera_config_.motion_blur_amount     = 1.0;
   rgb_camera_config_.motion_blur_distortion = 50.0;
+
+  depth_camera_config_.ShowCameraComponent  = false;
+  depth_camera_config_.Offset               = FVector(0, 0, 0);
+  depth_camera_config_.Orientation          = FRotator(0, 0, 0);
+  depth_camera_config_.FOVAngle             = 90;
+  depth_camera_config_.Width                = 640;
+  depth_camera_config_.Height               = 480;
+  depth_camera_config_.MaxDistance          = 1000;
 
   stereo_camera_config_.ShowCameraComponent = false;
   stereo_camera_config_.Offset              = FVector(0, 0, 0);
@@ -352,6 +387,7 @@ void ADronePawn::BeginPlay() {
 
   SetRgbCameraConfig(rgb_camera_config_);
   SetStereoCameraConfig(stereo_camera_config_);
+  SetDepthCameraConfig(depth_camera_config_);
 
   if (!LoadCSVData(CSVFilePath)) {
         UE_LOG(LogTemp, Error, TEXT("Failed to load CSV data in BeginPlay."));
@@ -375,6 +411,7 @@ void ADronePawn::StartServer() {
 void ADronePawn::EndPlay(const EEndPlayReason::Type EndPlayReason) {
 
   RgbCameraBuffer.Empty();
+  DepthCameraBuffer.Empty();
   StereoLeftCameraBuffer.Empty();
   StereoRightCameraBuffer.Empty();
   droneServer->Stop();
@@ -1101,6 +1138,28 @@ void ADronePawn::UpdateCamera(bool isExternallyLocked, int type = 1, double stam
       break;
     }
 
+    case CAMERA_MODE_DEPTH: {
+        if (!isExternallyLocked) {
+			DepthCameraBufferCriticalSection->Lock();
+		}
+
+        const auto Resource = RenderTarget2DDepth->GameThread_GetRenderTargetResource();
+
+        Resource->ReadPixels(DepthCameraBuffer);
+
+        DepthCameraDataNeedsCompress = true;
+
+        depth_stamp_ = stamp;
+
+        DepthCameraRendered = true;
+
+        if (!isExternallyLocked) {
+            DepthCameraBufferCriticalSection->Unlock();
+        }
+
+        break;
+    }
+
     case CAMERA_MODE_STEREO: {
 
       if (!isExternallyLocked) {
@@ -1316,6 +1375,35 @@ bool ADronePawn::GetRgbCameraDataFromServerThread(TArray<uint8>& OutArray, doubl
   return true;
 }
 
+bool ADronePawn::GetDepthCameraDataFromServerThread(TArray<uint8>& OutArray, double& stamp) {
+  DepthCameraBufferCriticalSection->Lock();
+
+  depth_camera_last_request_time_ = FPlatformTime::Seconds();
+
+  if (CameraCaptureMode == CameraCaptureModeEnum::CAPTURE_ON_DEMAND) {
+    auto Instruction      = std::make_shared<FInstruction<ADronePawn>>();
+    Instruction->Function = [](ADronePawn& _DronePawn) { _DronePawn.UpdateCamera(true, CAMERA_MODE_DEPTH); };
+    InstructionQueue->Enqueue(Instruction);
+    FGenericPlatformProcess::ConditionalSleep([Instruction]() { return Instruction->Finished; });
+  }
+  if (!DepthCameraRendered) {
+    UE_LOG(LogTemp, Warning, TEXT("DronePawn(): depth camera is not rendered, returning"));
+    DepthCameraBufferCriticalSection->Unlock();
+    return false;
+  }
+
+  if (DepthCameraDataNeedsCompress) {
+    FImageUtils::ThumbnailCompressImageArray(RenderTarget2DDepth->SizeX, RenderTarget2DDepth->SizeY, DepthCameraBuffer, *CompressedDepthCameraData);
+    DepthCameraDataNeedsCompress = false;
+  }
+  const auto Size = (*CompressedDepthCameraData).Num();
+  OutArray.SetNumUninitialized(Size);
+  FMemory::Memcpy(OutArray.GetData(), (*CompressedDepthCameraData).GetData(), Size * sizeof(uint8));
+  stamp = depth_stamp_;
+  DepthCameraBufferCriticalSection->Unlock();
+  return true;
+}
+
 bool ADronePawn::GetStereoCameraDataFromServerThread(TArray<uint8>& image_left, TArray<uint8>& image_right, double& stamp) {
 
   {
@@ -1517,6 +1605,10 @@ FStereoCameraConfig ADronePawn::GetStereoCameraConfig() {
   return stereo_camera_config_;
 }
 
+FDepthCameraConfig ADronePawn::GetDepthCameraConfig() {
+	return depth_camera_config_;
+}
+
 //}
 
 /* setRgbCameraConfig() //{ */
@@ -1576,6 +1668,60 @@ bool ADronePawn::SetRgbCameraConfig(const FRgbCameraConfig& Config) {
 
   return true;
 }
+
+
+bool ADronePawn::SetDepthCameraConfig(const FDepthCameraConfig& Config) {
+	UE_LOG(LogTemp, Warning, TEXT("ADronePawn::SetDepthCameraConfig"));
+
+    depth_camera_config_ = Config;
+
+	DepthCameraBufferCriticalSection->Lock();
+
+    SceneCaptureMeshHolderDepth->SetVisibility(Config.ShowCameraComponent);
+    SceneCaptureMeshHolderDepth->SetRelativeLocation(Config.Offset);
+    SceneCaptureMeshHolderDepth->SetRelativeRotation(FRotator(0, 0, 0));
+    SceneCaptureMeshHolderDepth->SetRelativeRotation(Config.Orientation);
+
+
+    SceneCaptureComponent2DDepth->FOVAngle = Config.FOVAngle;
+
+    DepthPostProcessMaterialInstance->SetScalarParameterValue(FName("Max_Distance"), Config.MaxDistance);
+
+    SceneCaptureComponent2DDepth->CaptureSource = SCS_FinalColorHDR;
+    SceneCaptureComponent2DDepth->TextureTarget = RenderTarget2DDepth;
+
+    SceneCaptureComponent2DDepth->bUseRayTracingIfEnabled = false;
+    SceneCaptureComponent2DDepth->bAlwaysPersistRenderingState = false;
+    SceneCaptureComponent2DDepth->bCaptureEveryFrame = false;
+    SceneCaptureComponent2DDepth->bCaptureOnMovement = false;
+
+    SceneCaptureComponent2DDepth->PostProcessSettings.MotionBlurAmount = false;
+    SceneCaptureComponent2DDepth->PostProcessSettings.MotionBlurMax = false; 
+    SceneCaptureComponent2DDepth->ShowFlags.SetTemporalAA(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetAntiAliasing(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetMotionBlur(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetEyeAdaptation(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetColorGrading(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetTonemapper(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetDepthOfField(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetBloom(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetLensFlares(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetVignette(false); 
+
+    if (Config.Width > 0 && Config.Height > 0) {
+        RenderTarget2DDepth->ResizeTarget(Config.Width, Config.Height);
+    }
+    else {
+        UE_LOG(LogTemp, Warning, TEXT("Invalid dimensions for RenderTarget2D. Width and Height should be greater than 0."));
+    }
+
+    
+	DepthCameraBufferCriticalSection->Unlock();
+
+    return true;
+}
+
+
 
 //}
 
@@ -1680,6 +1826,30 @@ void ADronePawn::Tick(float DeltaSeconds) {
     }
 
     RgbCameraBufferCriticalSection->Unlock();
+  }
+
+
+  {
+    DepthCameraBufferCriticalSection->Lock();
+
+    if ((FPlatformTime::Seconds() - depth_camera_last_request_time_) > 1.0) {
+        if (SceneCaptureComponent2DDepth->bCaptureEveryFrame) {
+            SceneCaptureComponent2DDepth->bCaptureEveryFrame = false;
+            DepthCameraRendered = false;
+            UE_LOG(LogTemp, Warning, TEXT("Turning off depth capture"));
+        }
+    }
+    else {
+        if (!SceneCaptureComponent2DDepth->bCaptureEveryFrame) {
+            SceneCaptureComponent2DDepth->bCaptureEveryFrame = true;
+            UE_LOG(LogTemp, Warning, TEXT("Turning on depth capture"));
+        }
+        else {
+            UpdateCamera(true, CAMERA_MODE_DEPTH, start);
+        }
+    }
+
+    DepthCameraBufferCriticalSection->Unlock();
   }
 
   {
