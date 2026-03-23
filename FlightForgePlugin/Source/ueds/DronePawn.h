@@ -256,7 +256,9 @@ public:
   TArray<FColor>                                                     StereoRightCameraBuffer;
   TArray<FColor>                                                     SemanticBuffer;
   TArray<FColor>                                                     RgbSegCameraBuffer;
-  TArray<FColor>                                                     DepthCameraBuffer;
+  TArray<FLinearColor>                                               DepthCameraBuffer;
+  //TArray <FColor>                                                    DepthCameraBuffer;
+
 
   double rgb_camera_last_request_time_ = 0;
   double rgb_seg_camera_last_request_time_ = 0;
