@@ -349,6 +349,7 @@ void ADronePawn::BeginPlay() {
   SceneCaptureComponent2DDepth->CaptureSource = SCS_FinalColorHDR;
   SceneCaptureComponent2DDepth->TextureTarget = RenderTarget2DDepth;
   SceneCaptureComponent2DDepth->ShowFlags.SetTemporalAA(false);
+  SceneCaptureComponent2DDepth->ShowFlags.SetAntiAliasing(false);
   SceneCaptureComponent2DDepth->bAlwaysPersistRenderingState        = false;
   SceneCaptureComponent2DDepth->bCaptureEveryFrame                  = false;
   SceneCaptureComponent2DDepth->bCaptureOnMovement                  = false;
@@ -1147,7 +1148,7 @@ void ADronePawn::UpdateCamera(bool isExternallyLocked, int type = 1, double stam
 
         Resource->ReadPixels(DepthCameraBuffer);
 
-        DepthCameraDataNeedsCompress = true;
+        //DepthCameraDataNeedsCompress = true;
 
         depth_stamp_ = stamp;
 
@@ -1391,14 +1392,20 @@ bool ADronePawn::GetDepthCameraDataFromServerThread(TArray<uint8>& OutArray, dou
     DepthCameraBufferCriticalSection->Unlock();
     return false;
   }
+  
+  
+  TArray64<uint8> TempCompressed;
 
-  if (DepthCameraDataNeedsCompress) {
-    FImageUtils::ThumbnailCompressImageArray(RenderTarget2DDepth->SizeX, RenderTarget2DDepth->SizeY, DepthCameraBuffer, *CompressedDepthCameraData);
-    DepthCameraDataNeedsCompress = false;
+  for (FColor& color : DepthCameraBuffer) {
+      color.A = 255;
   }
-  const auto Size = (*CompressedDepthCameraData).Num();
+
+  FImageUtils::PNGCompressImageArray(RenderTarget2DDepth->SizeX, RenderTarget2DDepth->SizeY, TArrayView64<const FColor>(DepthCameraBuffer), TempCompressed);
+  
+
+  const auto Size = (TempCompressed).Num();
   OutArray.SetNumUninitialized(Size);
-  FMemory::Memcpy(OutArray.GetData(), (*CompressedDepthCameraData).GetData(), Size * sizeof(uint8));
+  FMemory::Memcpy(OutArray.GetData(), (TempCompressed).GetData(), Size * sizeof(uint8));
   stamp = depth_stamp_;
   DepthCameraBufferCriticalSection->Unlock();
   return true;
@@ -1698,6 +1705,7 @@ bool ADronePawn::SetDepthCameraConfig(const FDepthCameraConfig& Config) {
     SceneCaptureComponent2DDepth->PostProcessSettings.MotionBlurAmount = false;
     SceneCaptureComponent2DDepth->PostProcessSettings.MotionBlurMax = false; 
     SceneCaptureComponent2DDepth->ShowFlags.SetTemporalAA(false);
+    SceneCaptureComponent2DDepth->ShowFlags.SetAntiAliasing(false);
     SceneCaptureComponent2DDepth->ShowFlags.SetAntiAliasing(false);
     SceneCaptureComponent2DDepth->ShowFlags.SetMotionBlur(false);
     SceneCaptureComponent2DDepth->ShowFlags.SetEyeAdaptation(false);

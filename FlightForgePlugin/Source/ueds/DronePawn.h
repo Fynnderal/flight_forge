@@ -391,12 +391,10 @@ private:
   std::unique_ptr<TArray<uint8>> CompressedStereoLeftCameraData  = std::make_unique<TArray<uint8>>();
   std::unique_ptr<TArray<uint8>> CompressedStereoRightCameraData = std::make_unique<TArray<uint8>>();
   std::unique_ptr<TArray<uint8>> CompressedRgbSegCameraData      = std::make_unique<TArray<uint8>>();
-  std::unique_ptr<TArray<uint8>> CompressedDepthCameraData       = std::make_unique<TArray<uint8>>();
 
   bool RgbCameraDataNeedsCompress         = false;
   bool StereoCameraDataNeedsCompress      = false;
   bool RgbSegCameraDataNeedsCompress      = false;
-  bool DepthCameraDataNeedsCompress       = false;
 
   bool RgbCameraRendered                  = false;
   bool RgbSegCameraRendered               = false;
