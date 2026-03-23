@@ -1409,22 +1409,23 @@ bool ADronePawn::GetDepthCameraDataFromServerThread(TArray<uint8>& OutArray, dou
 
 
   TArray64<FColor> DepthCameraTemp;
+  float scale = 255.0f / depth_camera_config_.MaxDistance;
   DepthCameraTemp.SetNumUninitialized(DepthCameraBuffer.Num());
 
   for (int i = 0; i < DepthCameraBuffer.Num(); i++) {
-      DepthCameraTemp[i].R = FMath::Clamp(DepthCameraBuffer[i].R / depth_camera_config_.MaxDistance * 255, 0, 255);
-      DepthCameraTemp[i].B = DepthCameraTemp[i].R;
-      DepthCameraTemp[i].G = DepthCameraTemp[i].R;
-	  DepthCameraTemp[i].A = 255; 
+      uint8 color = FMath::Clamp(DepthCameraBuffer[i].R * scale, 0.0f, 255.0f);
+      DepthCameraTemp[i] = FColor(color, color, color, 255);
   }
 
 
   //FImageUtils::PNGCompressImageArray(RenderTarget2DDepth->SizeX, RenderTarget2DDepth->SizeY, TArrayView64<const FColor>(DepthCameraBuffer), TempCompressed);
   FImageUtils::PNGCompressImageArray(RenderTarget2DDepth->SizeX, RenderTarget2DDepth->SizeY, DepthCameraTemp, TempCompressed);
+  //FImageUtils::PNGCompressImageArray(RenderTarget2DDepth->SizeX, RenderTarget2DDepth->SizeY, DepthCameraTemp, TempCompressed);
 
   const auto Size = (TempCompressed).Num();
   OutArray.SetNumUninitialized(Size);
   FMemory::Memcpy(OutArray.GetData(), (TempCompressed).GetData(), Size * sizeof(uint8));
+
   stamp = depth_stamp_;
   DepthCameraBufferCriticalSection->Unlock();
   return true;
