@@ -114,17 +114,17 @@ struct FRgbCameraConfig
   double   motion_blur_distortion;
 };
 
-struct FDepthCameraConfig 
-{
-    bool ShowCameraComponent;
-
-    FVector Offset;
-    FRotator Orientation;
-    double FOVAngle;
-    int Width;
-    int Height;
-    float MaxDistance;
-};
+//struct FDepthCameraConfig 
+//{
+//    bool ShowCameraComponent;
+//
+//    FVector Offset;
+//    FRotator Orientation;
+//    double FOVAngle;
+//    int Width;
+//    int Height;
+//    float MaxDistance;
+//};
 
 struct FStereoCameraConfig
 {
@@ -215,11 +215,11 @@ public:
   UPROPERTY(EditAnywhere, Category = "Segmentation PostProcess Setup")
   UMaterial* PostProcessMaterial = nullptr; 
 
-  UPROPERTY(EditAnywhere, Category = "Depth PostProcess Setup")
-  UMaterial* DepthPostProcessMaterial = nullptr;
+  //UPROPERTY(EditAnywhere, Category = "Depth PostProcess Setup")
+  //UMaterial* DepthPostProcessMaterial = nullptr;
 
-  UPROPERTY()
-  UMaterialInstanceDynamic* DepthPostProcessMaterialInstance = nullptr;
+  //UPROPERTY()
+  //UMaterialInstanceDynamic* DepthPostProcessMaterialInstance = nullptr;
 
   UPROPERTY(VisibleAnywhere, Category = "Rigid Body", BlueprintReadWrite)
   UStaticMeshComponent* RootMeshComponent;
@@ -256,7 +256,7 @@ public:
   TArray<FColor>                                                     StereoRightCameraBuffer;
   TArray<FColor>                                                     SemanticBuffer;
   TArray<FColor>                                                     RgbSegCameraBuffer;
-  TArray<FLinearColor>                                               DepthCameraBuffer;
+  TArray<FFloat16Color>                                               DepthCameraBuffer;
   //TArray <FColor>                                                    DepthCameraBuffer;
 
 
@@ -294,7 +294,7 @@ public:
 
   bool GetRgbCameraDataFromServerThread(TArray<uint8>& OutArray, double &stamp);
 
-  bool GetDepthCameraDataFromServerThread(TArray<uint8>& outArray, double& stamp);
+  bool GetDepthCameraDataFromServerThread(TArray<uint16>& outArray, double& stamp);
 
   bool GetStereoCameraDataFromServerThread(TArray<uint8>& image_left, TArray<uint8>& image_right, double &stamp);
 
@@ -309,9 +309,6 @@ public:
 
   FRgbCameraConfig GetRgbCameraConfig();
   bool             SetRgbCameraConfig(const FRgbCameraConfig& Config);
-
-  FDepthCameraConfig GetDepthCameraConfig();
-  bool               SetDepthCameraConfig(const FDepthCameraConfig& Config); 
 
   FStereoCameraConfig GetStereoCameraConfig();
   bool                SetStereoCameraConfig(const FStereoCameraConfig& Config);
@@ -361,6 +358,8 @@ private:
   
   void DisabledPhysics_StartRotatePropellers();
 
+  void SetDepthCamera(const FRgbCameraConfig& Config);
+
 #if PLATFORM_WINDOWS
   std::unique_ptr<FWindowsCriticalSection> LidarHitsCriticalSection;
   std::unique_ptr<FWindowsCriticalSection> LidarSegHitsCriticalSection;
@@ -387,7 +386,6 @@ private:
 
   FRgbCameraConfig rgb_camera_config_;
   FStereoCameraConfig stereo_camera_config_;
-  FDepthCameraConfig depth_camera_config_;
 
   std::unique_ptr<TArray<uint8>> CompressedRgbCameraData         = std::make_unique<TArray<uint8>>();
   std::unique_ptr<TArray<uint8>> CompressedStereoLeftCameraData  = std::make_unique<TArray<uint8>>();

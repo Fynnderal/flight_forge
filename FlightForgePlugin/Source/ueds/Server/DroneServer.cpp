@@ -159,21 +159,6 @@ bool DroneServer::Route(const FTCPClient &Client, std::shared_ptr<std::stringstr
 		return SetRgbCameraConfig(Client, CustomRequest);
 	}
 
-	if (Request.type == Serializable::Drone::MessageType::get_depth_camera_config) {
-			
-		Serializable::Drone::GetDepthCameraConfig::Request CustomRequest;
-		Serialization::SerializeRequest(CustomRequest, *InputStream);
-	
-		return GetDepthCameraConfig(Client, CustomRequest);
-	}
-
-	if (Request.type == Serializable::Drone::MessageType::set_depth_camera_config) {
-			
-		Serializable::Drone::SetDepthCameraConfig::Request CustomRequest;
-		Serialization::SerializeRequest(CustomRequest, *InputStream);
-	
-		return SetDepthCameraConfig(Client, CustomRequest);
-	}
 	
 	if(Request.type == Serializable::Drone::MessageType::get_stereo_camera_config) {
 	
@@ -349,9 +334,9 @@ bool DroneServer::GetRgbCameraData(const FTCPClient& Client, Serializable::Drone
 }
 
 bool DroneServer::GetDepthCameraData(const FTCPClient& Client, Serializable::Drone::GetDepthCameraData::Request& Request) {
-	TArray<uint8> CompressedBitmap;
+	TArray<uint16_t> Temp;
 	double stamp;
-	bool res = DronePawn->GetDepthCameraDataFromServerThread(CompressedBitmap, stamp);
+	bool res = DronePawn->GetDepthCameraDataFromServerThread(Temp, stamp);
 
 	if (!res) {
 		Serializable::Drone::GetDepthCameraData::Response Response(false);
@@ -360,12 +345,14 @@ bool DroneServer::GetDepthCameraData(const FTCPClient& Client, Serializable::Dro
 		return Respond(Client, OutputStream);
 	}
 	Serializable::Drone::GetDepthCameraData::Response Response(true);
-	Response.image_ = std::vector<unsigned char>(CompressedBitmap.Num());
-	for(int i = 0; i < CompressedBitmap.Num(); i++) {
-		Response.image_[i] = CompressedBitmap[i];
+	Response.image_ = std::vector<uint16_t>(Temp.Num());
+	for(int i = 0; i < Temp.Num(); i++) {
+		Response.image_[i] = Temp[i];
 	}
 	std::stringstream OutputStream;
 	Response.stamp_ = stamp;
+	Response.status = true;
+
 	Serialization::DeserializeResponse(Response, OutputStream);
 	return Respond(Client, OutputStream);
 }
@@ -873,32 +860,6 @@ bool DroneServer::GetRgbCameraConfig(const FTCPClient& Client, Serializable::Dro
 	return Respond(Client, OutputStream);
 }
 
-bool DroneServer::GetDepthCameraConfig(const FTCPClient& Client, Serializable::Drone::GetDepthCameraConfig::Request& Request)
-{
-	if(!DronePawn) {
-		return false;
-	}
-	UE_LOG(LogTemp, Warning, TEXT("DroneServer::GetDepthCameraConfig()"));
-	const auto CameraConfig = DronePawn->GetDepthCameraConfig();
-	std::stringstream OutputStream;
-	Serializable::Drone::GetDepthCameraConfig::Response Response(true);
-	Response.config = Serializable::Drone::DepthCameraConfig{};
-	Response.config.show_debug_camera_= CameraConfig.ShowCameraComponent;
-	Response.config.offset_x_ = CameraConfig.Offset.X;
-	Response.config.offset_y_ = CameraConfig.Offset.Y;
-	Response.config.offset_z_ = CameraConfig.Offset.Z;
-	Response.config.rotation_pitch_ = CameraConfig.Orientation.Pitch;
-	Response.config.rotation_yaw_ = CameraConfig.Orientation.Yaw;
-	Response.config.rotation_roll_ = CameraConfig.Orientation.Roll;
-	Response.config.fov_ = CameraConfig.FOVAngle;
-	Response.config.width_ = CameraConfig.Width;
-	Response.config.height_ = CameraConfig.Height;
-	Response.config.max_distance_ = CameraConfig.MaxDistance;
-
-	Serialization::DeserializeResponse(Response, OutputStream);
-	return Respond(Client, OutputStream);
-}
-
 
 //}
 
@@ -988,39 +949,6 @@ bool DroneServer::SetRgbCameraConfig(const FTCPClient& Client, Serializable::Dro
 
 	std::stringstream OutputStream;
 	Serializable::Drone::SetRgbCameraConfig::Response Response(Status);
-	Serialization::DeserializeResponse(Response, OutputStream);
-	return Respond(Client, OutputStream);
-}
-
-bool DroneServer::SetDepthCameraConfig(const FTCPClient& Client, Serializable::Drone::SetDepthCameraConfig::Request& Request)
-{
-	UE_LOG(LogTemp, Warning, TEXT("DroneServer::SetDepthCameraConfig"));
-	if(!DronePawn) {
-		return false;
-	}
-	
-	FDepthCameraConfig Config;
-	Config.ShowCameraComponent = Request.config.show_debug_camera_;
-	Config.Offset = FVector(Request.config.offset_x_, Request.config.offset_y_, Request.config.offset_z_);
-	Config.Orientation = FRotator(Request.config.rotation_pitch_, Request.config.rotation_yaw_, Request.config.rotation_roll_);
-	Config.FOVAngle = Request.config.fov_;
-	Config.Width = Request.config.width_;
-	Config.Height = Request.config.height_;
-	Config.MaxDistance = Request.config.max_distance_;
-
-	bool Status = false;
-
-	auto Instruction = std::make_shared<FInstruction<ADronePawn>>();
-	Instruction->Function = [&Config, &Status](ADronePawn& _DronePawn) {
-		Status = _DronePawn.SetDepthCameraConfig(Config);
-	};
-
-	DronePawn->InstructionQueue->Enqueue(Instruction);
-
-	FGenericPlatformProcess::ConditionalSleep([Instruction](){return Instruction->Finished;});
-
-	std::stringstream OutputStream;
-	Serializable::Drone::SetDepthCameraConfig::Response Response(Status);
 	Serialization::DeserializeResponse(Response, OutputStream);
 	return Respond(Client, OutputStream);
 }
