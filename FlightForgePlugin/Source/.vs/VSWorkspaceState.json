@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\MessageSerialization",
+    "\\ThirdParty",
+    "\\ueds",
+    "\\ueds\\RenderSettings",
+    "\\ueds\\Sensors",
+    "\\ueds\\Server"
+  ],
+  "SelectedNode": "\\ueds\\Sensors\\RgbCamera.cpp",
+  "PreviewInSolutionExplorer": false
+}

@@ -65,6 +65,9 @@ public:
 	bool SetStereoCameraConfig(const FStereoCameraConfig& Config);
 
 	virtual void UpdateCamera(bool isExternallyLocked, double stamp) override;
+
+	virtual void Initialize(int InSensorID) override;
+
 	
 	virtual void GetConfig(std::stringstream& OutputStream) override;
 	virtual void SetConfig(std::stringstream& OutputStream, std::shared_ptr<std::stringstream> InputStream) override;

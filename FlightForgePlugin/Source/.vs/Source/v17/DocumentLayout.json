@@ -1,0 +1,275 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbCamera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\RgbCamera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbCamera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\RgbCamera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbSegCamera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\RgbSegCamera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\uedsGameModeBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\uedsGameModeBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Sensor.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\Sensor.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Sensor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\Sensor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbSegCamera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\RgbSegCamera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\DronePawn.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\DronePawn.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\DronePawn.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\DronePawn.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\ueds.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\ueds.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Server\\DroneServer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Server\\DroneServer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Lidar.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\Sensors\\Lidar.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\RenderSettings\\DisableViewportRender.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ueds\\RenderSettings\\DisableViewportRender.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "uedsGameModeBase.h",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\uedsGameModeBase.h",
+              "RelativeDocumentMoniker": "ueds\\uedsGameModeBase.h",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\uedsGameModeBase.h",
+              "RelativeToolTip": "ueds\\uedsGameModeBase.h",
+              "ViewState": "AgIAAEABAAAAAAAAAAAhwE0BAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-11T18:20:00.039Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Sensor.h",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Sensor.h",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\Sensor.h",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Sensor.h",
+              "RelativeToolTip": "ueds\\Sensors\\Sensor.h",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-11T18:17:24.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Camera.h",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Camera.h",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\Camera.h",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Camera.h",
+              "RelativeToolTip": "ueds\\Sensors\\Camera.h",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-11T18:17:03.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RgbSegCamera.cpp",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbSegCamera.cpp",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\RgbSegCamera.cpp",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbSegCamera.cpp",
+              "RelativeToolTip": "ueds\\Sensors\\RgbSegCamera.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABQAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-11T18:16:07.508Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Sensor.cpp",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Sensor.cpp",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\Sensor.cpp",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Sensor.cpp",
+              "RelativeToolTip": "ueds\\Sensors\\Sensor.cpp",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-11T18:16:04.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Camera.cpp",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Camera.cpp",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\Camera.cpp",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Camera.cpp",
+              "RelativeToolTip": "ueds\\Sensors\\Camera.cpp",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAAABsAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-11T18:14:59.287Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RgbCamera.h",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbCamera.h",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\RgbCamera.h",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbCamera.h",
+              "RelativeToolTip": "ueds\\Sensors\\RgbCamera.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-11T18:15:23.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RgbCamera.cpp",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbCamera.cpp",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\RgbCamera.cpp",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbCamera.cpp",
+              "RelativeToolTip": "ueds\\Sensors\\RgbCamera.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-11T18:15:24.271Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RgbSegCamera.h",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbSegCamera.h",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\RgbSegCamera.h",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\RgbSegCamera.h",
+              "RelativeToolTip": "ueds\\Sensors\\RgbSegCamera.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-11T18:16:03.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DronePawn.h",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\DronePawn.h",
+              "RelativeDocumentMoniker": "ueds\\DronePawn.h",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\DronePawn.h",
+              "RelativeToolTip": "ueds\\DronePawn.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-11T18:15:49.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ueds.h",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\ueds.h",
+              "RelativeDocumentMoniker": "ueds\\ueds.h",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\ueds.h",
+              "RelativeToolTip": "ueds\\ueds.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-11T18:15:45.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DroneServer.cpp",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Server\\DroneServer.cpp",
+              "RelativeDocumentMoniker": "ueds\\Server\\DroneServer.cpp",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Server\\DroneServer.cpp",
+              "RelativeToolTip": "ueds\\Server\\DroneServer.cpp",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-11T18:15:40.277Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DronePawn.cpp",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\DronePawn.cpp",
+              "RelativeDocumentMoniker": "ueds\\DronePawn.cpp",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\DronePawn.cpp",
+              "RelativeToolTip": "ueds\\DronePawn.cpp",
+              "ViewState": "AgIAAOwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-11T18:15:32.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Lidar.h",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Lidar.h",
+              "RelativeDocumentMoniker": "ueds\\Sensors\\Lidar.h",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\Sensors\\Lidar.h",
+              "RelativeToolTip": "ueds\\Sensors\\Lidar.h",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-11T18:15:16.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "DisableViewportRender.cpp",
+              "DocumentMoniker": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\RenderSettings\\DisableViewportRender.cpp",
+              "RelativeDocumentMoniker": "ueds\\RenderSettings\\DisableViewportRender.cpp",
+              "ToolTip": "D:\\UnrealProjects\\ForgeRefac\\Plugins\\flight_forge\\FlightForgePlugin\\Source\\ueds\\RenderSettings\\DisableViewportRender.cpp",
+              "RelativeToolTip": "ueds\\RenderSettings\\DisableViewportRender.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-04-11T18:14:53.27Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
