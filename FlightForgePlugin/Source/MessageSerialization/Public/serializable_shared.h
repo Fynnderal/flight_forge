@@ -106,6 +106,8 @@ enum MessageType : unsigned short
   get_crash_state                 = 21,
   get_lidar_int                   = 22,
   get_rangefinder_data            = 23,
+  get_depth_camera_data           = 24,
+
 };
 
 /* struct LidarConfig //{ */
@@ -177,6 +179,7 @@ struct RgbCameraConfig
             enable_raytracing_, enable_hdr_, enable_motion_blur_, motion_blur_amount_, motion_blur_distortion_);
   }
 };
+
 
 //}
 
@@ -289,6 +292,7 @@ struct Response : public Common::NetworkResponse
 
 //}
 
+
 /* GetRgbCameraData //{ */
 
 namespace GetRgbCameraData
@@ -322,28 +326,53 @@ struct Response : public Common::NetworkResponse
 
 namespace GetRgbSegCameraData
 {
-struct Request : public Common::NetworkRequest
+    struct Request : public Common::NetworkRequest
+    {
+        Request() : Common::NetworkRequest(static_cast<unsigned short>(MessageType::get_rgb_seg_camera_data)) {
+        }
+    };
+
+    struct Response : public Common::NetworkResponse
+    {
+        Response() : Common::NetworkResponse(static_cast<unsigned short>(MessageType::get_rgb_seg_camera_data)) {
+        }
+        explicit Response(bool _status) : Common::NetworkResponse(MessageType::get_rgb_seg_camera_data, _status) {
+        }
+
+        std::vector<unsigned char> image_;
+        double                     stamp_;
+
+        template <class Archive>
+        void serialize(Archive& archive) {
+            archive(cereal::base_class<Common::NetworkResponse>(this), image_, stamp_);
+        }
+    };
+}
+
+namespace GetDepthCameraData 
 {
-  Request() : Common::NetworkRequest(static_cast<unsigned short>(MessageType::get_rgb_seg_camera_data)) {
-  }
-};
+    struct Request : public Common::NetworkRequest
+    {
+        Request() : Common::NetworkRequest(static_cast<unsigned short>(MessageType::get_depth_camera_data)) {}
+    };
 
-struct Response : public Common::NetworkResponse
-{
-  Response() : Common::NetworkResponse(static_cast<unsigned short>(MessageType::get_rgb_seg_camera_data)) {
-  }
-  explicit Response(bool _status) : Common::NetworkResponse(MessageType::get_rgb_seg_camera_data, _status) {
-  }
+    struct Response : public Common::NetworkResponse
+    {
+        Response() : Common::NetworkResponse(static_cast<unsigned short>(MessageType::get_depth_camera_data)) {}
+        explicit Response(bool _status) : Common::NetworkResponse(MessageType::get_depth_camera_data, _status) {}
 
-  std::vector<unsigned char> image_;
-  double                     stamp_;
+        std::vector<uint16_t> image_;
+        double                stamp_;
+        template <class Archive>
+        void serialize(Archive& archive) {
+            archive(cereal::base_class<Common::NetworkResponse>(this), image_, stamp_);
+        }
+    };
+}
 
-  template <class Archive>
-  void serialize(Archive& archive) {
-    archive(cereal::base_class<Common::NetworkResponse>(this), image_, stamp_);
-  }
-};
-}  // namespace GetRgbSegCameraData
+
+
+  // namespace GetRgbSegCameraData
 
 //}
 
@@ -761,6 +790,7 @@ struct Response : public Common::NetworkResponse
 
 /* GetRgbCameraConfig //{ */
 
+
 namespace GetRgbCameraConfig
 {
 struct Request : public Common::NetworkRequest
@@ -781,6 +811,11 @@ struct Response : public Common::NetworkResponse
   }
 };
 }  // namespace GetRgbCameraConfig
+
+
+
+
+
 
 //}
 
@@ -806,6 +841,9 @@ struct Response : public Common::NetworkResponse
   explicit Response(bool _status) : Common::NetworkResponse(MessageType::set_rgb_camera_config, _status){};
 };
 }  // namespace SetRgbCameraConfig
+
+
+
 
 //}
 

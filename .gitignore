@@ -4,4 +4,11 @@ FlightForgePlugin/Binaries
 
 FlightForgePlugin/Intermediate
 
+**/.vs/
+**/Binaries/
+**/Intermediate/
+**/DerivedDataCache/
+**/Saved/
+**/Build/
+
 .idea/
