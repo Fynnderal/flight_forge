@@ -1492,10 +1492,6 @@ bool ADronePawn::GetDepthCameraDataFromServerThread(TArray<uint16_t>& OutArray, 
     OutArray.SetNumUninitialized(resolution);
 
     for (int i = 0; i < DepthCameraBuffer.Num(); i++) {
-;
-
-
-
         float mm = DepthCameraBuffer[i].R.GetFloat() * 10;
 
         if (mm > 65535) {
